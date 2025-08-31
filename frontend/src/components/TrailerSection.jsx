@@ -14,14 +14,17 @@ const TrailerSection = () => {
       </p>
       <div className="relative mt-6">
         <BlurCircle top="-100px" right="-100px" />
+        
         {/* <ReactPlayer url={currentTrailer.videoUrl} controls={false} className='mx-auto max-w-full' width="960px" height="540px"/> */}
-        <video
+         <ReactPlayer url="https://www.youtube.com/watch?v=bZ07Ca-KkQ4" controls={true} className='mx-auto max-w-full' width="960px" height="540px"/>
+       
+        {/* <video
           className="max-auto max-w-full"
           height="540"
           width="960"
           src={currentTrailer.videoUrl}
           controls={false}
-        />
+        /> */}
       </div>
 
       <div className="group grid grid-cols-4 gap-4 md:gap-8 mt-8 max-w-3xl mx-auto">
