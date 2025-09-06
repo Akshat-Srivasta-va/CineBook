@@ -1,7 +1,6 @@
 import {
   ChartLineIcon,
   CircleDollarSignIcon,
-  icons,
   PlayCircleIcon,
   StarIcon,
   UsersIcon,
