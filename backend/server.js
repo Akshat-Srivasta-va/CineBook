@@ -6,6 +6,9 @@ import { clerkMiddleware } from '@clerk/express'
 import { serve } from "inngest/express";
 import { inngest, functions } from "./server/inngest/index.js"
 
+// these two lines added by me
+import userRoutes from "./server/routes/userRoutes.js";
+import movieRoutes from "./server/routes/movieRoutes.js";
 
 const app = express()
 const port = 3000;
@@ -19,6 +22,9 @@ app.use(clerkMiddleware())
 
 // API Routes
 app.get('/', (req, res)=> res.send('Server is Live'))
+app.use("/api/users", userRoutes); // added by me
+app.use("/api/movies", movieRoutes);   // added by me
+
 // Set up the "/api/inngest" (recommended) routes with the serve handler
 app.use("/api/inngest", serve({ client: inngest, functions }));
 
