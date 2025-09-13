@@ -32,11 +32,34 @@ if(!movie) {
 https://api.themoviedb.org/3/movie/${movieId}`, {
     headers: {Autherization : `Bearer ${ProcessingInstruction.env.TMDB_API_KEY }`}}),
    
-    axios.get(``, {
+    axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
         headers: {Autherization : `Bearer ${ProcessingInstruction.env.TMDB_API_KEY }`}
     })
-    ])
+     ])
+
+     const movieApiData = movieDetailResponce.data;
+     const movieCreditData = movieCreditResponce.data;
+
+     const movieDetails = {
+        _id: movieId,
+        title: movieApiData.title,
+        overview: movieApiData.overview,
+        poster_path: movieApiData.backdrop_path,
+        backdrop_path: movieApiData.backdrop_path,
+        genres: movieApiData.genres,
+        casts: movieCreditData,cast,
+        release_date: movieApiData.release_date,
+        orignal_language: movieApiData.orignal_language,
+        tagline: movieApiData.tagline || "",
+        vote_average: movieApiData.vote_average,
+        runtime: movieApiData.runtime,
+     }
+
+     // Add movie to the database
+     movie = await Movie.create(movieDetails)
 }
+
+const showsToCreate = []
 
     } catch (error) {
 console.log(error);
