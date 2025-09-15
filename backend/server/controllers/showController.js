@@ -2,83 +2,91 @@ import axios from "axios";
 import Movie from "../models/Movie.js";
 
 // api to get now playing movies fromTMDB API
-export const getNowPlayingMovies = async(req, res) => {
-    try {
-const { data } = await axios.get('https://api.themoviedb.org/3/movie/now_playing', {
-    headers: {Autherization : `Bearer ${ProcessingInstruction.env.TMDB_API_KEY }`}
-}) 
+export const getNowPlayingMovies = async (req, res) => {
+  try {
+    const { data } = await axios.get(
+      "https://api.themoviedb.org/3/movie/now_playing",
+      {
+        headers: { Autherization: `Bearer ${process.env.TMDB_API_KEY}` },
+      }
+    );
 
-const movies = data.results;
-res.json({success: true, movies: movies})
-
-    } catch(error) {
-       console.log(error);
-       res.json({success: false, message: error.message})
-    }
-}
-
+    const movies = data.results;
+    res.json({ success: true, movies: movies });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // API to add a new show to database
 export const addShow = async (req, res) => {
-    try {
-const {movieId, showsInput, showPrice} = req.body
+  try {
+    const { movieId, showsInput, showPrice } = req.body;
 
-let movie = await Movie.findById(movieId)
+    let movie = await Movie.findById(movieId);
 
-if(!movie) {
-    // fetch movie details and credit from TMDB API
-    const [movieDetailResponce, movieCreditResponce] = await Promise.all([
-        axios.get(`
-https://api.themoviedb.org/3/movie/${movieId}`, {
-    headers: {Autherization : `Bearer ${ProcessingInstruction.env.TMDB_API_KEY }`}}),
-   
-    axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
-        headers: {Autherization : `Bearer ${ProcessingInstruction.env.TMDB_API_KEY }`}
-    })
-     ])
+    if (!movie) {
+      // fetch movie details and credit from TMDB API
+      const [movieDetailResponce, movieCreditResponce] = await Promise.all([
+        axios.get(
+          `
+https://api.themoviedb.org/3/movie/${movieId}`,
+          {
+            headers: { Autherization: `Bearer ${process.env.TMDB_API_KEY}` },
+          }
+        ),
 
-     const movieApiData = movieDetailResponce.data;
-     const movieCreditData = movieCreditResponce.data;
+        axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
+          headers: {
+            Autherization: `Bearer ${process.env.TMDB_API_KEY}`,
+          },
+        }),
+      ]);
 
-     const movieDetails = {
+      const movieApiData = movieDetailResponce.data;
+      const movieCreditData = movieCreditResponce.data;
+
+      const movieDetails = {
         _id: movieId,
         title: movieApiData.title,
         overview: movieApiData.overview,
         poster_path: movieApiData.backdrop_path,
         backdrop_path: movieApiData.backdrop_path,
         genres: movieApiData.genres,
-        casts: movieCreditData,cast,
+        casts: movieCreditData,
+        cast,
         release_date: movieApiData.release_date,
         orignal_language: movieApiData.orignal_language,
         tagline: movieApiData.tagline || "",
         vote_average: movieApiData.vote_average,
         runtime: movieApiData.runtime,
-     }
+      };
 
-     // Add movie to the database
-     movie = await Movie.create(movieDetails)
-}
+      // Add movie to the database
+      movie = await Movie.create(movieDetails);
+    }
 
-const showsToCreate = [];
-showsInput.forEach(show => {
-    const showDate = show.date;
-    show.time.forEach((time)=> {
+    const showsToCreate = [];
+    showsInput.forEach((show) => {
+      const showDate = show.date;
+      show.time.forEach((time) => {
         const dateTimeString = `${showDate}T${time}`;
         showsToCreate.push({
-            movie: movieId,
-            showDateTime: new Date(dateTimeString),
-            showPrice,
-            occupiedSeats: {}
-        })
-    })
-});
+          movie: movieId,
+          showDateTime: new Date(dateTimeString),
+          showPrice,
+          occupiedSeats: {},
+        });
+      });
+    });
 
-if(showsToCreate.length > 0) {
-    await Show.insertMany(showsToCreate);
-}
-res.json({success: true, message: 'Show Added sucessfully.'})
-    } catch (error) {
-console.log(error);
-res.json({success: false, message: error.message})
+    if (showsToCreate.length > 0) {
+      await Show.insertMany(showsToCreate);
     }
-}
+    res.json({ success: true, message: "Show Added sucessfully." });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};

@@ -1,6 +1,6 @@
 import expresss from 'express';
 import { getNowPlayingMovies } from '../controllers/showController.js  ';
-import { addShow } from '../controllers/showController';
+import { addShow } from '../controllers/showController.js';
 
 const showRouter = expresss.Router();
 
