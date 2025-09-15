@@ -1,13 +1,12 @@
 import axios from "axios";
 import Movie from "../models/Movie.js";
+import Show from "../models/Show.js";
 
 // api to get now playing movies fromTMDB API
 export const getNowPlayingMovies = async (req, res) => {
   try {
-    const { data } = await axios.get(
-      "https://api.themoviedb.org/3/movie/now_playing",
-      {
-        headers: { Autherization: `Bearer ${process.env.TMDB_API_KEY}` },
+    const { data } = await axios.get("https://api.themoviedb.org/3/movie/now_playing",{
+        headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` },
       }
     );
 
@@ -29,17 +28,13 @@ export const addShow = async (req, res) => {
     if (!movie) {
       // fetch movie details and credit from TMDB API
       const [movieDetailResponce, movieCreditResponce] = await Promise.all([
-        axios.get(
-          `
-https://api.themoviedb.org/3/movie/${movieId}`,
-          {
-            headers: { Autherization: `Bearer ${process.env.TMDB_API_KEY}` },
-          }
-        ),
+        axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
+          headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` },
+        }),
 
         axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
           headers: {
-            Autherization: `Bearer ${process.env.TMDB_API_KEY}`,
+            Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
           },
         }),
       ]);
@@ -51,13 +46,12 @@ https://api.themoviedb.org/3/movie/${movieId}`,
         _id: movieId,
         title: movieApiData.title,
         overview: movieApiData.overview,
-        poster_path: movieApiData.backdrop_path,
+        poster_path: movieApiData.poster_path,
         backdrop_path: movieApiData.backdrop_path,
         genres: movieApiData.genres,
-        casts: movieCreditData,
-        cast,
+        casts: movieCreditData.casts,
         release_date: movieApiData.release_date,
-        orignal_language: movieApiData.orignal_language,
+        original_language: movieApiData.original_language,
         tagline: movieApiData.tagline || "",
         vote_average: movieApiData.vote_average,
         runtime: movieApiData.runtime,
