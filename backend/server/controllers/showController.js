@@ -59,8 +59,24 @@ https://api.themoviedb.org/3/movie/${movieId}`, {
      movie = await Movie.create(movieDetails)
 }
 
-const showsToCreate = []
+const showsToCreate = [];
+showsInput.forEach(show => {
+    const showDate = show.date;
+    show.time.forEach((time)=> {
+        const dateTimeString = `${showDate}T${time}`;
+        showsToCreate.push({
+            movie: movieId,
+            showDateTime: new Date(dateTimeString),
+            showPrice,
+            occupiedSeats: {}
+        })
+    })
+});
 
+if(showsToCreate.length > 0) {
+    await Show.insertMany(showsToCreate);
+}
+res.json({success: true, message: 'Show Added sucessfully.'})
     } catch (error) {
 console.log(error);
 res.json({success: false, message: error.message})
