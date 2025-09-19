@@ -1,16 +1,26 @@
 import express from "express";
-import User from "../models/User.js";
+import { getFavourites, getUserBooking, updateFavourite } from "../controllers/userController.js";
+// import User from "../models/User.js";
 
-const router = express.Router();
+// const router = express.Router();
 
-// Get all users
-router.get("/", async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+// // Get all users
+// router.get("/", async (req, res) => {
+//   try {
+//     const users = await User.find();
+//     res.json(users);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
 
-export default router;
+// export default router;
+
+
+const getRouter = express.Router();
+
+userRouter.get('/bookings', getUserBooking)
+userRouter.post('update-favourite', updateFavourite)
+userRouter.get('favourites', getFavourites)
+
+export default userRouter;

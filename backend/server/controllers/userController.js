@@ -2,6 +2,7 @@
 
 import { clerkClient } from "@clerk/express";
 import Booking from "../models/Booking";
+import Movie from "../models/Movie";
 
 export const getUserBooking = async (req, res) => {
   try {
@@ -20,24 +21,47 @@ export const getUserBooking = async (req, res) => {
   }
 };
 
-// API Controller Function to Add Favourite Movie in Clerk User Metadata
+// API Controller Function to update Favourite Movie in Clerk User Metadata
 
-export const addFavourite = async (req, res) => {
+export const updateFavourite = async (req, res) => {
   try {
-    const {movieId} = req.body;
+    const { movieId } = req.body;
     const userId = req.auth().userId;
 
-    const user = await clerkClient.users.getUser(userId)
+    const user = await clerkClient.users.getUser(userId);
 
-    if(!user.privateMetadata.favourites) {
-        user.privateMetadata.favourites = []
+    if (!user.privateMetadata.favourites) {
+      user.privateMetadata.favourites = [];
     }
 
-    if(!user.privateMetadata.favourites.includes(movieId)) {
-        user.privateMetadata.favourites.push(movieId)
+    if (!user.privateMetadata.favourites.includes(movieId)) {
+      user.privateMetadata.favourites.push(movieId);
+    } else {
+      user.privateMetadata.favourites = user.privateMetadata.favourites.filter(
+        (item) => item !== movieId
+      );
     }
 
-    await clerkClient.users.updateUserMetadata(userId, {privateMetadata: user.privateMetadata})
+    await clerkClient.users.updateUserMetadata(userId, {
+      privateMetadata: user.privateMetadata,
+    });
+
+    res.json({ success: true, message: "Favourite added updated" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const getFavourites = async (req, res) => {
+  try {
+    const user = await clerkClient.users.getUser(req.auth().userId)
+    const favourites = user.privateMetadata.favourites;
+
+    // Getting movies from database
+    const movies = await Movie.find({_id: {$in: favourites}})
+
+    res.json({success: true, movies})
 
   } catch (error) {
     console.log(error.message);
