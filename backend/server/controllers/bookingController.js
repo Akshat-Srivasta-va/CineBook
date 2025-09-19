@@ -1,7 +1,7 @@
 // Function to check availability of selected  
 
-import Booking from "../models/Booking";
-import Show from "../models/Show";
+import Booking from "../models/Booking.js";
+import Show from "../models/Show.js";
 
 const checkSeatsAvailability = async (showId, selectedSeats)=> {
     try {
