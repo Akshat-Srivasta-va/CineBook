@@ -17,7 +17,7 @@ import { getFavourites, getUserBooking, updateFavourite } from "../controllers/u
 // export default router;
 
 
-const getRouter = express.Router();
+const userRouter = express.Router();
 
 userRouter.get('/bookings', getUserBooking)
 userRouter.post('update-favourite', updateFavourite)
