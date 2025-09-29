@@ -58,7 +58,7 @@ const AddShows = () => {
     });
   };
 
-  const handleSubmint = async () => {
+  const handleSubmit = async () => {
     try {
       setAddingShow(true)
 
@@ -74,9 +74,19 @@ const AddShows = () => {
       }
       const { data } = await axios.post('/apishow/add', paylod, {headers: {
         Authorization: `Bearer ${await getToken()}` }})
-    } catch(error) {
-
+   if(data.success) {
+    toast.success(data.message)
+    setSelectedMovie(null)
+    setDateTimeSelection({})
+    setShowPrice("")
+   } else {
+    toast.error(data.message)
+   }
+      } catch(error) {
+console.log("Submission error:",error)
+toast.error('An error occured. Please try again.')
     }
+    setAddingShow(false )
   }
 
   useEffect(() => {
