@@ -85,7 +85,7 @@ const image_base_url = import.meta.env.VITE_TMDB_IMAGE_BASE_URL
         axios,
         fetchIsAdmin,
         user, getToken, navigate, isAdmin, shows,
-        favouriteMovies, fetchFavouriteMovies, ima
+        favouriteMovies, fetchFavouriteMovies, image_base_url
     }
     return (
         <AppContext.Provider value={value}>
