@@ -16,7 +16,7 @@ export const AppProvider = ({ children }) => {
 
  const [isAdmin, setIsAdmin] = useState(false);
  const [shows, setShows] = useState([]);
- const [favouriteMovies, setFavouriteMovies] = useState([]);
+ const [favoriteMovies, setFavoriteMovies] = useState([]);
 
 const image_base_url = import.meta.env.VITE_TMDB_IMAGE_BASE_URL
 
@@ -55,13 +55,13 @@ const image_base_url = import.meta.env.VITE_TMDB_IMAGE_BASE_URL
     }
  }
 
-  const fetchFavouriteMovies = async ()=>{
+  const fetchFavoriteMovies = async ()=>{
    try {
      const { data } = await axios.get('/api/user/favorites', {headers:
          {Authorization: `Bearer ${await getToken()}`}})
 
          if(data.success) {
-            setFavouriteMovies(data.movies)
+            setFavoriteMovies(data.movies)
          } else {
             toast.error(data.message)
          }
@@ -77,7 +77,7 @@ const image_base_url = import.meta.env.VITE_TMDB_IMAGE_BASE_URL
  useEffect(()=> {
     if(user){
         fetchIsAdmin()
-        fetchFavouriteMovies()
+        fetchFavoriteMovies()
     }
  },[user])
     
@@ -85,7 +85,7 @@ const image_base_url = import.meta.env.VITE_TMDB_IMAGE_BASE_URL
         axios,
         fetchIsAdmin,
         user, getToken, navigate, isAdmin, shows,
-        favouriteMovies, fetchFavouriteMovies, image_base_url
+        favoriteMovies, fetchFavoriteMovies, image_base_url
     }
     return (
         <AppContext.Provider value={value}>
