@@ -47,6 +47,21 @@ const syncUserUpdation = inngest.createFunction (
     }
 )
 
+// Inngest Function to send email when user book a show
+const sendBookingConfirmationEmail = inngest.createFunction(
+    {
+        id: "send-bookig-confirmation-email"
+    }, {event: "app/show.booked"},
+    async ({event, step})=> {
+         const {bookingId} = event.data;
+
+         const booking = await Booking.findById(bookingId).populate({
+            path: 'show',
+            populate: {path: "movie", model: "Movie"}
+         }).populate('user')
+    }
+)
+
 // Create an empty array where we'll export future Inngest functions
 export const functions = [syncUserCreation,
     syncUserDeletion,
