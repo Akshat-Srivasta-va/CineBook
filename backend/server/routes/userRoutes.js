@@ -1,5 +1,6 @@
 import express from "express";
 import { getFavorites, getUserBooking, updateFavorite } from "../controllers/userController.js";
+
 // import User from "../models/User.js";
 
 // const router = express.Router();
