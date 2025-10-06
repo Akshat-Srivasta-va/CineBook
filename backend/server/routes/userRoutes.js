@@ -1,5 +1,5 @@
 import express from "express";
-import { getFavourites, getUserBooking, updateFavourite } from "../controllers/userController.js";
+import { getFavorites, getUserBooking, updateFavorite } from "../controllers/userController.js";
 // import User from "../models/User.js";
 
 // const router = express.Router();
@@ -21,7 +21,7 @@ const userRouter = express.Router();
 
 userRouter.get('/', (req, res) => res.json({ message: 'User route working' }));
 userRouter.get('/bookings', getUserBooking)
-userRouter.post('/update-favourite', updateFavourite)
-userRouter.get('/favourites', getFavourites)
+userRouter.post('/update-favorite', updateFavorite)
+userRouter.get('/favorites', getFavorites)
 
 export default userRouter;
