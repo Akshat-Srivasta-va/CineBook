@@ -1,19 +1,20 @@
-// API Controller Function to Get User Booking
-
+// backend/server/controllers/userController.js
 import { clerkClient } from "@clerk/express";
 import Booking from "../models/Booking.js";
 import Movie from "../models/Movie.js";
 
+// Get user bookings
 export const getUserBooking = async (req, res) => {
   try {
-    const user = req.auth().userId;
+    const userId = req.auth().userId;
 
-    const bookings = await Booking({ user })
+    const bookings = await Booking.find({ user: userId })
       .populate({
         path: "show",
         populate: { path: "movie" },
       })
       .sort({ createdAt: -1 });
+
     res.json({ success: true, bookings });
   } catch (error) {
     console.log(error.message);
@@ -21,8 +22,7 @@ export const getUserBooking = async (req, res) => {
   }
 };
 
-// API Controller Function to update Favourite Movie in Clerk User Metadata
-
+// Update user's favorite movies
 export const updateFavourite = async (req, res) => {
   try {
     const { movieId } = req.body;
@@ -46,23 +46,23 @@ export const updateFavourite = async (req, res) => {
       privateMetadata: user.privateMetadata,
     });
 
-    res.json({ success: true, message: "Favourite added updated" });
+    res.json({ success: true, message: "Favourite updated successfully" });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
   }
 };
 
-export const getFavourites = async (req, res) => {
+// Get user's favorite movies
+export const getFavorites = async (req, res) => {
   try {
-    const user = await clerkClient.users.getUser(req.auth().userId)
-    const favourites = user.privateMetadata.favourites;
+    const user = await clerkClient.users.getUser(req.auth().userId);
+    const favorites = user.privateMetadata.favourites || [];
 
-    // Getting movies from database
-    const movies = await Movie.find({_id: {$in: favourites}})
+    // Get movies from DB
+    const movies = await Movie.find({ _id: { $in: favorites } });
 
-    res.json({success: true, movies})
-
+    res.json({ success: true, movies });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
