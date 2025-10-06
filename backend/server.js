@@ -17,46 +17,45 @@ import userRouter from './server/routes/userRoutes.js';
 
 
 const app = express()
-const port = 3000;
+const port = process.env.PORT || 5000;
+
 
 await connectDB()
 
 //Middleware
 app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+  origin: "https://cine-book-henna.vercel.app",
+  credentials: true
+}));
+
+
 app.use(clerkMiddleware())
 
 // API Routes
-app.get('/', (req, res)=> res.send('Server is Live'))  
+// app.get('/', (req, res)=> res.send('Server is Live')) 
+
+app.get('/', (req, res) => {
+  res.json({ success: true, message: "Server is live and connected!" });
+});
+
  
 // app.use("/api/movies", movieRoutes);   // added by me
 
 
 
-// Test route to verify TMDB API works
-app.get("/test-tmdb", async (req, res) => {
-  try {
-    const { data } = await axios.get(
-      "https://api.themoviedb.org/3/movie/now_playing",
-      { headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` } }
-    );
-    res.json({ success: true, movies: data.results });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
-});
-
-
-
-
-// Set up the "/api/inngest" (recommended) routes with the serve handler
+// Set up the "/api/inngest" routes with the serve handler
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use('/api/show', showRouter)
 app.use('/api/booking', bookingRouter)
 app.use('/api/admin', adminRouter)
 app.use("/api/user", userRouter);
 
-app.listen(port, ()=> console.log(`Server listening at http://localhost:${port}`))
+// app.listen(port, ()=> console.log(`Server listening at http://localhost:${port}`))
+
+app.listen(port, () => console.log(`✅ Server listening on port ${port}`));
+
 
 
 
