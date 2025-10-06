@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
  
-// app.use("/api/movies", movieRoutes);   // added by me
+app.use("/api/movies", movieRoutes);   // added by me
 
 
 
