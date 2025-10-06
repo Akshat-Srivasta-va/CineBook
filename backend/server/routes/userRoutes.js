@@ -19,8 +19,9 @@ import { getFavourites, getUserBooking, updateFavourite } from "../controllers/u
 
 const userRouter = express.Router();
 
+userRouter.get('/', (req, res) => res.json({ message: 'User route working' }));
 userRouter.get('/bookings', getUserBooking)
-userRouter.post('update-favourite', updateFavourite)
-userRouter.get('favourites', getFavourites)
+userRouter.post('/update-favourite', updateFavourite)
+userRouter.get('/favourites', getFavourites)
 
 export default userRouter;
