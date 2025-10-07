@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 // Set axios base URL to backend deployed on Render
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+axios.defaults.baseURL = axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || import.meta.env.VITE_API_URL;
 
 export const AppContext = createContext();
 

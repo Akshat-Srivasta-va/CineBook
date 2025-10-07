@@ -26,15 +26,16 @@ await connectDB()
 app.use(express.json())
 
 app.use(cors({
-  origin: "https://cine-book-henna.vercel.app",
+  origin: ["https://cine-book-henna.vercel.app", "http://localhost:5173"],
   credentials: true
 }));
+
 
 
 app.use(clerkMiddleware())
 
 // API Routes
-// app.get('/', (req, res)=> res.send('Server is Live')) 
+ 
 
 app.get('/', (req, res) => {
   res.json({ success: true, message: "Server is live and connected!" });
