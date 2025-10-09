@@ -10,7 +10,7 @@ export const getNowPlayingMovies = async (req, res) => {
       {
         headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
        accept: "application/json",
-      },
+      }
       }
     );
 
