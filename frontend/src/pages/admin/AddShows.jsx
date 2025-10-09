@@ -72,7 +72,7 @@ const AddShows = () => {
         showsInput, 
         showPrice: Number(showPrice)
       }
-      const { data } = await axios.post('/apishow/add', paylod, {headers: {
+      const { data } = await axios.post('/api/show/add', paylod, {headers: {
         Authorization: `Bearer ${await getToken()}` }})
    if(data.success) {
     toast.success(data.message)

@@ -12,9 +12,9 @@ import movieRoutes from "./server/routes/movieRoutes.js";
 import bookingRouter from './server/routes/bookingRoutes.js';
 import adminRouter from './server/routes/adminRoutes.js';
 import userRouter from './server/routes/userRoutes.js';
+
+// import { clerkExpressWithAuth } from "@clerk/express";
   
-
-
 
 const app = express()
 const port = process.env.PORT || 5000;
@@ -31,20 +31,19 @@ app.use(cors({
 }));
 
 
-
 app.use(clerkMiddleware())
+// app.use(clerkExpressWithAuth());
+
 
 
 // API Routes
  
-
 app.get('/', (req, res) => {
   res.json({ success: true, message: "Server is live and connected!" });
 });
 
  
 // app.use("/api/movies", movieRoutes);   // added by me   
-
 
 
 // Set up the "/api/inngest" routes with the serve handler
