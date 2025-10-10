@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BlurCircle from "../components/BlurCircle";
 import { Heart, PlayCircleIcon, StarIcon } from "lucide-react";
@@ -14,13 +14,13 @@ const MovieDetail = () => {
   const { id } = useParams();
   const [show, setShow] = useState(null);
 
-  const {shows, axios, getToken, user, fetchFavouriteMovies, favouriteMovies, image_base_url} = useAppContext()
+  const {shows, axios, getToken, user, fetchFavoriteMovies, favoriteMovies, image_base_url} = useAppContext()
 
   const getShow = async () => {
      try {
       const { data } = await axios.get(`/api/show/${id}`)
       if(data.success) {
-        setShow(data.show)
+        setShow(data)
     }
    }
     catch (error) {
@@ -29,7 +29,7 @@ const MovieDetail = () => {
     }
   }
 
-  const handleFavourite = async () => {
+  const handleFavorite = async () => {
     try {
   if(!user) return toast.error("Please login to proceed")
 
@@ -37,7 +37,7 @@ const MovieDetail = () => {
       {headers: {Authorization: `Bearer ${await getToken()}`}})
 
       if(data.success) {
-        await fetchFavouriteMovies()
+        await fetchFavoriteMovies()
         toast.success(data.message)
       }
     } catch (error) {
@@ -88,8 +88,8 @@ console.log(error)
             >
               Buy Tickets
             </a>
-            <button onClick={handleFavourite} className="bg-gray-700 p-2.5 rounded-full transition cursor-pointer active:scale-95">
-              <Heart className={`w-5 h-5 ${favouriteMovies.find(movie => movie._id === id) ? 'fill-primary text-primary' : ""}`} />
+            <button onClick={handleFavorite} className="bg-gray-700 p-2.5 rounded-full transition cursor-pointer active:scale-95">
+              <Heart className={`w-5 h-5 ${favoriteMovies.find(movie => movie._id === id) ? 'fill-primary text-primary' : ""}`} />
             </button>
           </div>
         </div>
@@ -137,3 +137,10 @@ console.log(error)
 };
 
 export default MovieDetail;
+
+
+
+
+
+
+
