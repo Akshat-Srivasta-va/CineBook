@@ -1,5 +1,6 @@
 import Booking from "../models/Booking.js"
 import Show from "../models/Show.js";
+import User from "../models/User.js";
 
 // API to check if user is admin
 export const isAdmin = async (req, res) =>{
@@ -44,7 +45,7 @@ export const getAllShows = async (req, res) => {
 
 export const getAllBookings = async (req, res) => {
     try {
-const booking = await Booking.find({}).populate('user').populate({
+const bookings = await Booking.find({}).populate('user').populate({
     path: "show",
     populate: {path: "movie"}
 }).sort({ createdAt: -1 })
