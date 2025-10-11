@@ -63,7 +63,7 @@ npm run dev
 
 ## Folder Structure
 
-```
+```bash
 
 src/
  ┣ assets/           ← Images, logos, icons
