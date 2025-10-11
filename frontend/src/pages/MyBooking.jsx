@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import BlurCircle from "../components/BlurCircle";
 import timeFormat from "../lib/timeFormat";
@@ -16,7 +16,7 @@ const MyBooking = () => {
   const getBookings = async () => {
     try {
       const { data } = await axios.get("/api/user/bookings", {
-        headers: { Autherization: `Bearer ${await getToken()} ` },
+        headers: { Authorization: `Bearer ${await getToken()} ` },
       });
       if (data.success) {
         setBookings(data.bookings);
@@ -44,7 +44,7 @@ const MyBooking = () => {
       {bookings.map((item, index) => (
         <div
           key={index}
-          className="flex flex-col md:flex-row justify-between bg-primary/8 border border=primary/20 rounded-lg mt-4 p-2 max-w-3xl"
+          className="flex flex-col md:flex-row justify-between bg-primary/8 border border-primary/20 rounded-lg mt-4 p-2 max-w-3xl"
         >
           <div className="flex flex-col md:flex-row">
             <img
