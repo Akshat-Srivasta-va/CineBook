@@ -63,6 +63,8 @@ npm run dev
 
 ## Folder Structure
 
+```
+
 src/
  ┣ assets/           ← Images, logos, icons
  ┣ components/       ← Reusable UI components
@@ -73,6 +75,7 @@ src/
  ┣ main.jsx          ← App entry point
  ┗ index.css         ← Global styling
 
+```
 
 
 
