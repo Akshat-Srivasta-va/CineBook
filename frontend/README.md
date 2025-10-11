@@ -51,6 +51,7 @@ cd frontend
 npm install
 npm run dev
 
+```
 
 ## Deployment
 
@@ -59,6 +60,9 @@ npm run dev
 * Can be deployed on Vercel with a custom domain
 
 * Supports CI/CD integration for automatic updates
+
+
+
 
 
 
