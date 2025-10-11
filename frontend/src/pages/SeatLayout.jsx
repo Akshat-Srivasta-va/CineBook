@@ -6,6 +6,8 @@ import isoTimeFormat from "../lib/isoTimeFormat";
 import BlurCircle from "../components/BlurCircle";
 import toast from "react-hot-toast";
 import { useAppContext } from "../context/AppContext";
+import {assets} from "../assets/assets.js";
+
 
 const SeatLayout = () => {
   const groupRows = [
@@ -77,7 +79,7 @@ const SeatLayout = () => {
   const getOccupiedSeats = async () => {
     try {
       const { data } = await axios.get(
-        `/api/booking/seats/${selectedSeats.showId}`
+        `/api/booking/seats/${selectedTime.showId}`
       );
       if (data.success) {
         setOccupiedSeats(data.occupiedSeats);
@@ -94,11 +96,11 @@ const SeatLayout = () => {
       if (!user) return toast.error("Please login to proceed");
 
       if (!selectedSeats || !selectedSeats.length)
-        return toast.error("Please selecct a time and seats");
+        return toast.error("Please select a time and seats");
 
       const { data } = await axios.post(
         "/api/booking/create",
-        { showId: selectedSeats.showId, selectedSeats },
+        { showId: selectedTime.showId, selectedSeats },
         { headers: { Authorization: `Bearer ${await getToken()}` } }
       );
 
@@ -155,12 +157,6 @@ const SeatLayout = () => {
         <h1 className="text-2xl font-semibold mb-4">Select Your Seat</h1>
         <img src={assets.screenImage} alt="screen" />
         <p className="text-gray-400 text-sm mb-6">Screen Side</p>
-
-        <div className="flex flex-col items-center mt-10 text-xs text-gray-100">
-          <div className="grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-2 mb-6">
-            {groupRows[0].map((row) => renderSeats(row))}
-          </div>
-        </div>
 
         <div className="flex flex-col items-center mt-10 text-xs text-gray-300 ">
           <div className="grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-2 mb-6">
