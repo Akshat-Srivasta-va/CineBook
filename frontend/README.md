@@ -52,3 +52,15 @@ npm install
 npm run dev
 
 
+## Deployment
+
+* Built with Vite and React
+
+* Can be deployed on Vercel with a custom domain
+
+* Supports CI/CD integration for automatic updates
+
+
+
+
+
