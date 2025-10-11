@@ -61,6 +61,19 @@ npm run dev
 
 * Supports CI/CD integration for automatic updates
 
+## Folder Structure
+
+src/
+ ┣ assets/           ← Images, logos, icons
+ ┣ components/       ← Reusable UI components
+ ┣ context/          ← App-wide state management
+ ┣ lib/              ← Helper functions & API calls
+ ┣ pages/            ← User and admin pages
+ ┣ App.jsx           ← Main app component
+ ┣ main.jsx          ← App entry point
+ ┗ index.css         ← Global styling
+
+
 
 
 
