@@ -45,7 +45,7 @@ cd cinebook-backend
 npm install
 npm start
 
-```bash
+```
 
 ### 🌐 6. **API Routes Overview**
 Give a brief idea of your API endpoints.
