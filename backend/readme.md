@@ -50,12 +50,21 @@ npm install
 
 # Environment Variables
 
+```
 MONGODB_URI=<your-mongodb-uri>
 CLERK_PUBLISHABLE_KEY=<your-clerk-publishable-key>
 CLERK_SECRET_KEY=<your-clerk-secret-key>
 INNGEST_EVENT_KEY=<your-inngest-event-key>
 INNGEST_SIGNING_KEY=<your-inngest-signing-key>
 TMDB_API_KEY=<your-tmdb-api-key>
+
+```
+
+# Running Locally
+
+```
+npm start
+```
 
 
 
