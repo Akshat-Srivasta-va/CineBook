@@ -42,10 +42,11 @@ server/
 
  # Installation
 
- git clone <your-repo-url>
+```
+git clone <your-repo-url>
 cd backend
 npm install
-
+```
 
 # Environment Variables
 
