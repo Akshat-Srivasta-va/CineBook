@@ -51,7 +51,7 @@ npm start
 Give a brief idea of your API endpoints.
 
 ```markdown
-## 🌐 API Routes Overview
+
 | Route Prefix | Description |
 |---------------|-------------|
 | `/api/admin` | Admin-related routes |
