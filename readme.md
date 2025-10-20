@@ -38,7 +38,7 @@ TMDB_API_KEY=your_tmdb_api_key
 ```
 
 ## 🚀 Installation & Setup
-1. Clone the repository 
+Clone the repository 
 ```
 git clone https://github.com/yourusername/cinebook-backend.git 
 cd cinebook-backend
@@ -47,7 +47,7 @@ npm start
 
 ```
 
-### 🌐 6. **API Routes Overview**
+### 🌐 **API Routes Overview**
 Give a brief idea of your API endpoints.
 
 ```markdown
