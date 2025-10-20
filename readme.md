@@ -39,6 +39,7 @@ TMDB_API_KEY=your_tmdb_api_key
 
 ## 🚀 Installation & Setup
 1. Clone the repository 
+```
 git clone https://github.com/yourusername/cinebook-backend.git 
    ```bash
 cd cinebook-backend
