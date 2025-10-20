@@ -60,4 +60,12 @@ Give a brief idea of your API endpoints.
 | `/api/shows` | Show and seat details |
 | `/api/users` | User-related actions |
 
+```
+
+## ☁️ Deployment
+- Built with **Express.js**
+- Can be deployed on **Render**, **Vercel**, or **Railway**
+- Connects automatically to MongoDB Atlas
+
+
 
