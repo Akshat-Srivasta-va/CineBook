@@ -15,8 +15,8 @@ const TrailerSection = () => {
       <div className="relative mt-6">
         <BlurCircle top="-100px" right="-100px" />
         
-        {/* <ReactPlayer url={currentTrailer.videoUrl} controls={false} className='mx-auto max-w-full' width="960px" height="540px"/> */}
-         <ReactPlayer url="https://www.youtube.com/watch?v=bZ07Ca-KkQ4" controls={true} className='mx-auto max-w-full' width="960px" height="540px"/>
+        <ReactPlayer url={currentTrailer.videoUrl} controls={true} className='mx-auto max-w-full' width="960px" height="540px"/>
+        {/* <ReactPlayer url="https://www.youtube.com/watch?v=bZ07Ca-KkQ4" controls={true} className='mx-auto max-w-full' width="960px" height="540px"/> */}
        
         {/* <video
           className="max-auto max-w-full"
