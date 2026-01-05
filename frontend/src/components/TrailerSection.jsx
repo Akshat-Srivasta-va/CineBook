@@ -7,6 +7,20 @@ import { PlayCircleIcon } from "lucide-react";
 const TrailerSection = () => {
   const [currentTrailer, setCurrentTrailer] = useState(dummyTrailers[0]);
 
+  const getEmbedUrl = (url) => {
+    try {
+      if(!url) return "";
+      const videoId = url.split("v=")[1];
+      const ampersandPosition = videoId.indexOf("&");
+      if(ampersandPosition !== -1) {
+        return `https://www.youtube.com/embed/${videoId.substring(0, ampersandPosition)}?autoplay=1&rel=0`;
+      }
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    } catch (e) {
+      return url;
+    }
+  };
+
   return (
     <div className="px-6 md:px-16 lg:px-24 xl:px-44 py-20 overflow-hidden">
       <p className="text-gray-300 font-medium text-lg max-w-[960px] mx-auto">
@@ -15,16 +29,20 @@ const TrailerSection = () => {
       <div className="relative mt-6">
         <BlurCircle top="-100px" right="-100px" />
         
-        <ReactPlayer url={currentTrailer.videoUrl} controls={true} className='mx-auto max-w-full' width="960px" height="540px"/>
-        {/* <ReactPlayer url="https://www.youtube.com/watch?v=bZ07Ca-KkQ4" controls={true} className='mx-auto max-w-full' width="960px" height="540px"/> */}
-       
-        {/* <video
-          className="max-auto max-w-full"
-          height="540"
+
+        {/* Native Iframe for Maximum Compatibility */}
+        <iframe
+          key={currentTrailer.videoUrl}
+          className="mx-auto max-w-full rounded-xl"
           width="960"
-          src={currentTrailer.videoUrl}
-          controls={false}
-        /> */}
+          height="540"
+          src={getEmbedUrl(currentTrailer.videoUrl)}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ zIndex: 50, position: 'relative' }} 
+        ></iframe>
       </div>
 
       <div className="group grid grid-cols-4 gap-4 md:gap-8 mt-8 max-w-3xl mx-auto">
